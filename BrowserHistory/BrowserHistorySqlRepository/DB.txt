@@ -1,0 +1,5 @@
+﻿CREATE TABLE [BrowserUserHistoryData] (
+  [Id] bigint NOT NULL  IDENTITY (1,1)
+, [Url] nvarchar(4000) NULL
+, [Date] datetime NOT NULL
+, [UserName] nvarchar(4000) NULL)
