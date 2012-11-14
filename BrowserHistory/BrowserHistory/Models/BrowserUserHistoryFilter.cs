@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using StructureMap;
 
 namespace BrowserHistory.Models
 {
@@ -10,16 +11,26 @@ namespace BrowserHistory.Models
     {
         private const int SaveToRepositoryInterval=3;
         public static T AddOrRetrieveFromApplication<T>(HttpApplicationStateBase app)
-            where T:new()
+            //where T:new()
         {
-            string key=typeof(T).FullName;
+            
+            var type = typeof(T);
+            string key=type.FullName;
 
             if (app.AllKeys.Contains(key)) 
             {
                 return (T)app[key];
             }
-
-            var result = new T();
+            T result;
+            if (typeof(T).IsInterface)
+            {
+                result =(T) ObjectFactory.GetInstance(type) ;
+            }
+            else
+            {
+                result = (T)Activator.CreateInstance(type);
+            }
+            //var result = new T();
             try
             {
                 app.Lock();
@@ -43,7 +54,8 @@ namespace BrowserHistory.Models
         IBrowserUserHistoryRepository SaveRepository(ControllerContext context)
         {
             var app = context.HttpContext.Application;
-            return AddOrRetrieveFromApplication<BrowserUserHistoryRepositoryMemory>(app);
+            //TODO: configure here the repository
+            return AddOrRetrieveFromApplication<IBrowserUserHistoryRepository>(app);
         }
         string Url(ControllerContext context)
         {

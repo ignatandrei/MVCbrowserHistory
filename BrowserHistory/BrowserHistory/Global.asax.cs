@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using BrowserHistory.Models;
+using StructureMap;
+using BrowserHistorySqlRepository;
 
 namespace BrowserHistory
 {
@@ -37,6 +39,9 @@ namespace BrowserHistory
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            //ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositoryMemory>());
+            //comment those for sql server ce
+            ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositorySqlServer>());
         }
     }
 }

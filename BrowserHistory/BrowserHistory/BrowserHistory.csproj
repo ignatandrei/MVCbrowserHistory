@@ -39,6 +39,9 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -157,6 +160,10 @@
     <ProjectReference Include="..\BrowserHistoryObjects\BrowserHistoryObjects.csproj">
       <Project>{62FBE014-FC5F-445B-AE3F-853568DF117A}</Project>
       <Name>BrowserHistoryObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrowserHistorySqlRepository\BrowserHistorySqlRepository.csproj">
+      <Project>{B7963046-E6D7-42EC-BCE3-88C9B4E4B57B}</Project>
+      <Name>BrowserHistorySqlRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

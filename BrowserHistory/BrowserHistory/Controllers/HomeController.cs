@@ -39,7 +39,7 @@ namespace BrowserHistory.Controllers
             }
             var his = new HistoryViewModel();
             his.UserHis = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistory>(this.HttpContext.Application).FilterByUser(id).Where(item=>!string.IsNullOrEmpty(item.PageName)).ToList();
-            his.rep = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistoryRepositoryMemory>(this.HttpContext.Application).FilterByUser(id);
+            his.rep = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<IBrowserUserHistoryRepository>(this.HttpContext.Application).FilterByUser(id);
             his.rep.Save(his.UserHis);
             return View(his);
         }
