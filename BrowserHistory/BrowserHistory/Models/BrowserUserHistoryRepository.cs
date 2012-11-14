@@ -7,20 +7,26 @@ namespace BrowserHistory.Models
 {
     public interface IBrowserUserHistoryRepository
     {
-        void Save(BrowserUserHistory history);
+        void Save(IEnumerable<BrowserUserHistoryData> history);
         IEnumerable<BrowserUserHistoryData> Retrieve(DateTime date);
         IEnumerable<KeyValuePair<string,int>> MostUsed(int Count, DateTime? date);
+        IBrowserUserHistoryRepository FilterByUser(string UserName);
     }
 
     public class BrowserUserHistoryRepositoryMemory : IBrowserUserHistoryRepository
     {
         private  BrowserUserHistory historyMemory;
+        private BrowserUserHistoryRepositoryMemory(IEnumerable<BrowserUserHistoryData> history)
+            : this()
+        {
+            historyMemory.AddRange(history);
+        }
         public BrowserUserHistoryRepositoryMemory()
         {
             historyMemory = new BrowserUserHistory();
         }
 
-        public void Save(BrowserUserHistory history)
+        public void Save(IEnumerable<BrowserUserHistoryData> history)
         {
             //adding just new ones
             this.historyMemory.AddRange(history.Where(item => item.IsNew));
@@ -46,6 +52,14 @@ namespace BrowserHistory.Models
         {
             var data= historyMemory.Where(item =>(date==null || item.Date.Subtract(date.Value).Days == 0)).GroupBy(item=>item.Url).OrderByDescending(g=>g.Count()).Take(Count);
             return data.Select(i =>new KeyValuePair<string,int>( i.Key,i.Count()));
+        }
+        public IBrowserUserHistoryRepository FilterByUser(string UserName)
+        {
+            if (string.IsNullOrEmpty(UserName))
+                return this;
+
+            var data = historyMemory.Where(item => string.Compare(UserName, item.UserName, StringComparison.CurrentCultureIgnoreCase) == 0).ToArray();
+            return new BrowserUserHistoryRepositoryMemory(data);
         }
     }
 }

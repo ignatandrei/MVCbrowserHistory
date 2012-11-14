@@ -7,7 +7,7 @@ namespace BrowserHistory.Models
 {
     public class HistoryViewModel
     {
-        public BrowserUserHistory UserHis;
+        public List<BrowserUserHistoryData> UserHis;
         public IBrowserUserHistoryRepository rep;
     }
 }

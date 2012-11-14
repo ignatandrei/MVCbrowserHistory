@@ -12,7 +12,7 @@ namespace BrowserHistory.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            ViewBag.Message = "Welcome to Browser History! Please press about and history links";
             
             return View();
         }
@@ -22,11 +22,25 @@ namespace BrowserHistory.Controllers
             return View();
         }
 
-        public ActionResult History()
+        public ActionResult History(string id)
         {
+            bool IsAdministrator = true;
+            string UserName = "";
+            //administrator can see all data...
+            if ((!IsAdministrator )&& this.User.Identity.IsAuthenticated )
+            {
+                UserName = this.User.Identity.Name;
+            }
+            
+            //for administrators, it will be easier to retrieve data for a specific user, if put in URL
+            if (string.IsNullOrEmpty(UserName))
+            {
+                UserName = id;
+            }
             var his = new HistoryViewModel();
-            his.UserHis = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistory>(this.HttpContext.Application);
-            his.rep = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistoryRepositoryMemory>(this.HttpContext.Application);
+            his.UserHis = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistory>(this.HttpContext.Application).FilterByUser(id).Where(item=>!string.IsNullOrEmpty(item.PageName)).ToList();
+            his.rep = BrowserUserHistoryFilter.AddOrRetrieveFromApplication<BrowserUserHistoryRepositoryMemory>(this.HttpContext.Application).FilterByUser(id);
+            his.rep.Save(his.UserHis);
             return View(his);
         }
     }

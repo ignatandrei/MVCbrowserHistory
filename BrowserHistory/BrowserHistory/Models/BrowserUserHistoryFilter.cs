@@ -74,7 +74,7 @@ namespace BrowserHistory.Models
             if (filterContext.HttpContext.Request.IsAjaxRequest())
                 return;
 
-            ViewResult vr = filterContext.Result as ViewResult;
+            var vr = filterContext.Result as ViewResult;
             if (vr == null)
                 return;
             var his=history(filterContext);

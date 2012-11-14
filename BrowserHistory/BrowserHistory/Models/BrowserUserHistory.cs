@@ -72,7 +72,13 @@ namespace BrowserHistory.Models
         {
 
         }
-        
+        public IEnumerable<BrowserUserHistoryData> FilterByUser(string UserName)
+        {
+            if(string.IsNullOrEmpty(UserName))
+                return this.AsReadOnly().ToArray();
+
+            return this.Where(item => string.Compare(UserName, item.UserName, StringComparison.CurrentCultureIgnoreCase) == 0).ToArray();
+        }
         public void Add(string Url, string UserName)
         {
             this.Add(new BrowserUserHistoryData(Url, UserName));

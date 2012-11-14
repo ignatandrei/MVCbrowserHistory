@@ -1,18 +1,19 @@
 ﻿@using BrowserHistory.Models;
 @model HistoryViewModel
-
 @{
     ViewBag.Title = "History";
+    int iNr = 0;
+    int iTop = 5;
 }
-
-<h2>History</h2>
-
+<h2>
+    History</h2>
 <p>
-    
 </p>
-
 <table>
     <tr>
+        <th>
+            &nbsp;
+        </th>
         <th>
             Name
         </th>
@@ -25,57 +26,52 @@
         <th>
             UserName
         </th>
-
-        
     </tr>
-
-@foreach (var item in Model.UserHis)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PageName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model.UserHis)
+    {
+        <tr>
+            <td>@(++iNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url, "ViewUrl")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+        </tr>
+    }
+    @{iNr = 0;}
 </table>
-
-Top 5 today
+Top @iTop today
 <table>
-<tr>
+    <tr>
+        <th>
+            &nbsp;
+        </th>
         <th>
             Url
         </th>
         <th>
             Count
         </th>
-        
-
-        
     </tr>
-
-    @foreach (var item in Model.rep.MostUsed(5,DateTime.Now))
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Key)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        
-    </tr>
-}
-
+    @foreach (var item in Model.rep.MostUsed(@iTop, DateTime.Now))
+    {
+        <tr>
+            <td>@(++iNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key, "ViewUrl")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
 </table>
-
-
