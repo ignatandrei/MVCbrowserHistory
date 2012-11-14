@@ -39,9 +39,9 @@ namespace BrowserHistory
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositoryMemory>());
+            //ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositoryMemory>());
             //uncomment those for sql server ce
-            //ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositorySqlServer>());
+            ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositorySqlServer>());
         }
     }
 }
