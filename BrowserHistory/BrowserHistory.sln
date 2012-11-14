@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowserHistory", "BrowserHistory\BrowserHistory.csproj", "{D525E81C-8D1E-4D33-B1B4-6D358CE82DB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowserHistoryObjects", "BrowserHistoryObjects\BrowserHistoryObjects.csproj", "{62FBE014-FC5F-445B-AE3F-853568DF117A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D525E81C-8D1E-4D33-B1B4-6D358CE82DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D525E81C-8D1E-4D33-B1B4-6D358CE82DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D525E81C-8D1E-4D33-B1B4-6D358CE82DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62FBE014-FC5F-445B-AE3F-853568DF117A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62FBE014-FC5F-445B-AE3F-853568DF117A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62FBE014-FC5F-445B-AE3F-853568DF117A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62FBE014-FC5F-445B-AE3F-853568DF117A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

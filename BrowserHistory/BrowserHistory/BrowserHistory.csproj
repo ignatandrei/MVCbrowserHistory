@@ -69,10 +69,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\BrowserUserHistory.cs" />
     <Compile Include="Models\BrowserUserHistoryFilter.cs" />
-    <Compile Include="Models\BrowserUserHistoryRepository.cs" />
-    <Compile Include="Models\HistoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\ViewUrl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrowserHistoryObjects\BrowserHistoryObjects.csproj">
+      <Project>{62FBE014-FC5F-445B-AE3F-853568DF117A}</Project>
+      <Name>BrowserHistoryObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
