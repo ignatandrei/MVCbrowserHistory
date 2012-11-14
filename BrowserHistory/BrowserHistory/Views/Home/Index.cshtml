@@ -6,3 +6,24 @@
 <p>
    @Html.ActionLink("History", "History", "Home")
 </p>
+
+Save to
+<select id="config">
+<option value="1">Memory Repository</option>
+<option value="2">Sql Server Repository</option>
+</select>
+<button onclick="javascript:SaveRepo()" >Save</button>
+
+<script>
+    function SaveRepo() {
+        var jsonUrl = '@Url.Action("SetRepository")';
+        $.post(jsonUrl, {
+                    id: $("#config").val(),
+                },
+                function(data) {
+                    window.alert(data.message);
+                },
+                "json"
+            );
+        
+    }</script>

@@ -10,6 +10,12 @@ namespace BrowserHistory.Models
     public class BrowserUserHistoryFilter:IActionFilter, IResultFilter 
     {
         private const int SaveToRepositoryInterval=3;
+        static void ClearFromApplication<T>(HttpApplicationStateBase app)
+        {
+            var type = typeof(T);
+            string key = type.FullName;
+            app.Remove(key);
+        }
         public static T AddOrRetrieveFromApplication<T>(HttpApplicationStateBase app)
             //where T:new()
         {
@@ -19,7 +25,9 @@ namespace BrowserHistory.Models
 
             if (app.AllKeys.Contains(key)) 
             {
-                return (T)app[key];
+                var ret = (T)app[key];
+                if (ret != null)
+                    return ret;
             }
             T result;
             if (typeof(T).IsInterface)
@@ -45,7 +53,13 @@ namespace BrowserHistory.Models
             return result;
         
         }
-        public static string key = "BrowserUserHistory";
+
+        public static void ClearData(ControllerContext context)
+        {
+            var app = context.HttpContext.Application;
+            ClearFromApplication<BrowserUserHistory>(app);
+            ClearFromApplication<IBrowserUserHistoryRepository>(app);
+        }
         BrowserUserHistory history(ControllerContext context)
         {
             var app = context.HttpContext.Application;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BrowserHistory.Models;
+using StructureMap;
+using BrowserHistorySqlRepository;
 
 namespace BrowserHistory.Controllers
 {
@@ -15,6 +17,37 @@ namespace BrowserHistory.Controllers
             ViewBag.Message = "Welcome to Browser History! Please press about and history links";
             
             return View();
+        }
+        public JsonResult SetRepository(int id)
+        {
+            try
+            {
+                string Message = "";
+                switch (id)
+                {
+                    default:
+                    case 1:
+                        ObjectFactory.EjectAllInstancesOf<IBrowserUserHistoryRepository>();
+                        ObjectFactory.Initialize(initializationExpression => { });
+                        ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositoryMemory>());
+                        Message = "now use memory";
+                        break;
+                    case 2:
+                        ObjectFactory.EjectAllInstancesOf<IBrowserUserHistoryRepository>();
+                        ObjectFactory.Initialize(initializationExpression => { });
+                        ObjectFactory.Configure(ce => ce.For<IBrowserUserHistoryRepository>().Use<BrowserUserHistoryRepositorySqlServer>());
+                        Message = "now use sql server";
+                        break;
+                    
+                }
+                
+                BrowserUserHistoryFilter.ClearData(this.ControllerContext);
+                return Json(new { ok = true, message = Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false , message=ex.Message});
+            }
         }
 
         public ActionResult About()
