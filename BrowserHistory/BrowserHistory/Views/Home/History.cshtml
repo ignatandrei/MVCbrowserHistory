@@ -1,0 +1,81 @@
+﻿@using BrowserHistory.Models;
+@model HistoryViewModel
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>History</h2>
+
+<p>
+    
+</p>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Url
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            UserName
+        </th>
+
+        
+    </tr>
+
+@foreach (var item in Model.UserHis)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+    </tr>
+}
+
+</table>
+
+Top 5 today
+<table>
+<tr>
+        <th>
+            Url
+        </th>
+        <th>
+            Count
+        </th>
+        
+
+        
+    </tr>
+
+    @foreach (var item in Model.rep.MostUsed(5,DateTime.Now))
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        
+    </tr>
+}
+
+</table>
+
+
